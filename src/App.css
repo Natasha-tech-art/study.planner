@@ -27,3 +27,24 @@ h1 {
   color: #2c3e50;
   margin-bottom: 20px;
 }
+/* Ensure the whole page takes up the full height of the screen */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* This allows the middle content to grow and push the footer to the bottom */
+.content-area {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
