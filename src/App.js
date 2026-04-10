@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-//import Footer from './components/Footer';
+import Footer from './components/Footer';
 import Subjects from './pages/subjects'; // Ensure this file exists!
 import './App.css';
 
@@ -72,10 +72,62 @@ function App() {
           </Routes>
         </main>
 
-        {/*<Footer />*/}
+        <Footer />
       </div>
     </Router>
   );
 }
 
 export default App;
+
+// 1. Update your state to include tasks
+const [tasks, setTasks] = useState(() => {
+  const saved = localStorage.getItem('study_tasks');
+  return saved ? JSON.parse(saved) : [];
+});
+
+// 2. Add an effect to save tasks to local storage
+useEffect(() => {
+  localStorage.setItem('study_tasks', JSON.stringify(tasks));
+}, [tasks]);
+
+// 3. Logic to add a task with priority
+const addTask = (taskData) => {
+  const newTask = { 
+    id: Date.now(), 
+    ...taskData, 
+    completed: false 
+  };
+  setTasks([...tasks, newTask]);
+};
+
+// 4. Logic to delete a task
+const deleteTask = (id) => {
+  setTasks(tasks.filter(t => t.id !== id));
+};
+
+// 1. Update your state to include tasks
+const [tasks, setTasks] = useState(() => {
+  const saved = localStorage.getItem('study_tasks');
+  return saved ? JSON.parse(saved) : [];
+});
+
+// 2. Add an effect to save tasks to local storage
+useEffect(() => {
+  localStorage.setItem('study_tasks', JSON.stringify(tasks));
+}, [tasks]);
+
+// 3. Logic to add a task with priority
+const addTask = (taskData) => {
+  const newTask = { 
+    id: Date.now(), 
+    ...taskData, 
+    completed: false 
+  };
+  setTasks([...tasks, newTask]);
+};
+
+// 4. Logic to delete a task
+const deleteTask = (id) => {
+  setTasks(tasks.filter(t => t.id !== id));
+};

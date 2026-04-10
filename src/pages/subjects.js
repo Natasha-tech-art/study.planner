@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './subjects.css';
 
 const Subjects = ({ subjects, onAdd, onDelete }) => {
   const [subjectName, setSubjectName] = useState('');

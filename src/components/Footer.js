@@ -1,14 +1,9 @@
 import React from 'react';
+import './Footer.css'; //
 
 const Footer = () => {
   return (
-    <footer style={{ 
-      textAlign: 'center', 
-      padding: '20px', 
-      marginTop: 'auto', 
-      background: '#fff', 
-      borderTop: '1px solid #eee' 
-    }}>
+    <footer className="footer"> 
       <p>&copy; 2026 StudySmart Planner</p>
     </footer>
   );
