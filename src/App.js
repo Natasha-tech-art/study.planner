@@ -4,12 +4,13 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Subjects from './pages/Subjects';
 import Tasks from './pages/Tasks';
-import CalendarPage from './pages/Calendar'; // Ensure the file is named Calendar.js
+import CalendarPage from './pages/Calendar';
+import Settings from './pages/Settings';
+ 
 import './App.css';
 
 // Only keep placeholders for pages you HAVEN'T created separate files for yet
 const Home = () => <div className="page"><h1>Dashboard</h1><p>Welcome to your study planner!</p></div>;
-const Settings = () => <div className="page"><h1>Settings</h1><p>Adjust your preferences here.</p></div>;
 const Login = () => <div className="page"><h1>Login</h1><p>Access your account.</p></div>;
 
 function App() {
