@@ -1,0 +1,52 @@
+.subjects-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.add-form {
+  display: flex;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.add-form input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.add-form button {
+  padding: 12px 24px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.subject-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+}
+
+.subject-card:hover {
+  background-color: #fcfcfc;
+}
+
+.delete-btn {
+  background: #ffeded;
+  color: #d0021b;
+  border: 1px solid #ffcfcf;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
