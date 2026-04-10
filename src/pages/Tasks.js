@@ -15,7 +15,8 @@ const Tasks = ({ tasks, subjects, onAddTask, onDeleteTask }) => {
   };
 
   return (
-    <div className="tasks-container">
+    <div className="tasks-container"
+    style={{backgroundColor: 'lightblue', padding: '50px',minHeight: '100vh'}}>
       <h1>Study Tasks</h1>
       
       <form onSubmit={handleSubmit} className="task-form">

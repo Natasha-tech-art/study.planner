@@ -2,76 +2,57 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Subjects from './pages/subjects'; // Ensure this file exists!
+import Subjects from './pages/Subjects';
+import Tasks from './pages/Tasks';
 import './App.css';
 
-// Placeholder components kept outside to avoid "Invalid Hook" errors
-const Home = () => (
-  <div className="page">
-    <h1>Dashboard</h1>
-    <p>Welcome to your study planner!</p>
-  </div>
-);
-const Tasks = () => <div className="page"><h1>Tasks Page</h1></div>;
-const Calendar = () => <div className="page"><h1>Calendar Page</h1></div>;
-const Settings = () => <div className="page"><h1>Settings Page</h1></div>;
-const Login = () => <div className="page"><h1>Login Page</h1></div>;
+const Home = () => <div className="page"><h1>Dashboard</h1><p>Welcome to your study planner!</p></div>;
+const Calendar = () => <div className="page"><h1>Calendar</h1><p>Plan your schedule here.</p></div>;
+const Settings = () => <div className="page"><h1>Settings</h1><p>Adjust your preferences.</p></div>;
+const Login = () => <div className="page"><h1>Login</h1><p>Access your account.</p></div>;
 
 function App() {
-  // 1. Initialize State from LocalStorage
   const [subjects, setSubjects] = useState(() => {
     const saved = localStorage.getItem('study_subjects');
     return saved ? JSON.parse(saved) : [];
   });
 
-  // 2. Save to LocalStorage whenever 'subjects' changes
+  const [tasks, setTasks] = useState(() => {
+    const saved = localStorage.getItem('study_tasks');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   useEffect(() => {
     localStorage.setItem('study_subjects', JSON.stringify(subjects));
-  }, [subjects]);
+    localStorage.setItem('study_tasks', JSON.stringify(tasks));
+  }, [subjects, tasks]);
 
-  // 3. CRUD Logic: Add Subject
-  const addSubject = (name) => {
-    const newSubject = { 
-      id: Date.now(), 
-      name: name,
-      dateCreated: new Date().toLocaleDateString() 
-    };
-    setSubjects([...subjects, newSubject]);
-  };
+  const addSubject = (name) => setSubjects([...subjects, { id: Date.now(), name }]);
+  const deleteSubject = (id) => setSubjects(subjects.filter(s => s.id !== id));
 
-  // 4. CRUD Logic: Delete Subject
-  const deleteSubject = (id) => {
-    setSubjects(subjects.filter(sub => sub.id !== id));
-  };
+  const addTask = (data) => setTasks([...tasks, { id: Date.now(), ...data }]);
+  const deleteTask = (id) => setTasks(tasks.filter(t => t.id !== id));
 
   return (
     <Router>
       <div className="app-wrapper">
         <Navbar />
-        
         <main className="content-area">
           <Routes>
             <Route path="/" element={<Home />} />
-            
-            {/* Pass the data and functions as "props" to the Subjects page */}
             <Route 
               path="/subjects" 
-              element={
-                <Subjects 
-                  subjects={subjects} 
-                  onAdd={addSubject} 
-                  onDelete={deleteSubject} 
-                />
-              } 
+              element={<Subjects subjects={subjects} onAdd={addSubject} onDelete={deleteSubject} />} 
             />
-
-            <Route path="/tasks" element={<Tasks />} />
+            <Route 
+              path="/tasks" 
+              element={<Tasks tasks={tasks} subjects={subjects} onAddTask={addTask} onDeleteTask={deleteTask} />} 
+            />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </Router>
@@ -79,55 +60,3 @@ function App() {
 }
 
 export default App;
-
-// 1. Update your state to include tasks
-const [tasks, setTasks] = useState(() => {
-  const saved = localStorage.getItem('study_tasks');
-  return saved ? JSON.parse(saved) : [];
-});
-
-// 2. Add an effect to save tasks to local storage
-useEffect(() => {
-  localStorage.setItem('study_tasks', JSON.stringify(tasks));
-}, [tasks]);
-
-// 3. Logic to add a task with priority
-const addTask = (taskData) => {
-  const newTask = { 
-    id: Date.now(), 
-    ...taskData, 
-    completed: false 
-  };
-  setTasks([...tasks, newTask]);
-};
-
-// 4. Logic to delete a task
-const deleteTask = (id) => {
-  setTasks(tasks.filter(t => t.id !== id));
-};
-
-// 1. Update your state to include tasks
-const [tasks, setTasks] = useState(() => {
-  const saved = localStorage.getItem('study_tasks');
-  return saved ? JSON.parse(saved) : [];
-});
-
-// 2. Add an effect to save tasks to local storage
-useEffect(() => {
-  localStorage.setItem('study_tasks', JSON.stringify(tasks));
-}, [tasks]);
-
-// 3. Logic to add a task with priority
-const addTask = (taskData) => {
-  const newTask = { 
-    id: Date.now(), 
-    ...taskData, 
-    completed: false 
-  };
-  setTasks([...tasks, newTask]);
-};
-
-// 4. Logic to delete a task
-const deleteTask = (id) => {
-  setTasks(tasks.filter(t => t.id !== id));
-};
